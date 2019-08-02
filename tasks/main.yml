@@ -1,0 +1,26 @@
+---
+- name: go get stretcher 
+  shell: >  
+    bash -lc "go get github.com/fujiwara/stretcher";
+
+- name: make
+  shell: >
+    bash -lc "make"; chdir=/root/go/src/github.com/fujiwara/stretcher
+
+
+- name: cp
+  shell: >
+    bash -lc "cp /root/go/src/github.com/fujiwara/stretcher/cmd/stretcher/stretcher /usr/local/bin/"
+
+- name: copy
+  copy: src=stretcher dest=/etc/init.d/stretcher owner=root group=root mode=0755
+
+- name: Enable service
+  service:
+    name: consul
+    enabled: yes
+
+- name: Start service
+  service:
+    name: consul
+    state: started

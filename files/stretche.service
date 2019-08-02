@@ -1,0 +1,11 @@
+[Unit]
+Description=strether
+Requires=network-online.target
+After=network-online.target consul.service vault.service
+
+[Service]
+ExecStart=/usr/local/sbin/consul watch -type event -name EVENTNAME /usr/local/bin/stretcher
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
